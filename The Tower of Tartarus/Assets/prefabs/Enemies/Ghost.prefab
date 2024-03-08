@@ -218,6 +218,7 @@ MonoBehaviour:
     m_Bits: 64
   meleeRadius: 0.6
   body: {fileID: 241147666516686435}
+  blood: {fileID: 8555844530297394069, guid: 76c077b6a83d6cd408fa3956e12eb793, type: 3}
   aggroed: 0
 --- !u!50 &6713394371026976825
 Rigidbody2D:

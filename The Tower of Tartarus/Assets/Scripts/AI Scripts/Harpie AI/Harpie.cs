@@ -12,6 +12,7 @@ public class Harpie : MonoBehaviour
     [SerializeField] public float speed;
     [SerializeField] LayerMask playerLayer;
     [SerializeField] float meleeRadius;
+    [SerializeField] GameObject blood;
     public bool aggroed = false;
     Player playerScript;
 
@@ -45,6 +46,8 @@ public class Harpie : MonoBehaviour
             playerScript.LoseHealth();
         }
         if(health <= 0){
+            GameObject bloodSplat = Instantiate(blood,transform.position,Quaternion.identity);
+            bloodSplat.transform.position = new Vector3(bloodSplat.transform.position.x, bloodSplat.transform.position.y, 2f);
             Destroy(this.gameObject);
         }
     }

@@ -13,6 +13,7 @@ public class Ghost : MonoBehaviour
     [SerializeField] LayerMask playerLayer;
     [SerializeField] float meleeRadius;
     [SerializeField] GameObject body;
+    [SerializeField] GameObject blood;
     public bool aggroed = false;
     Player playerScript;
 
@@ -47,6 +48,8 @@ public class Ghost : MonoBehaviour
             playerScript.LoseHealth();
         }
         if(health <= 0){
+            GameObject bloodSplat = Instantiate(blood,transform.position,Quaternion.identity);
+            bloodSplat.transform.position = new Vector3(bloodSplat.transform.position.x, bloodSplat.transform.position.y, 2f);
             Destroy(this.gameObject);
         }
     }

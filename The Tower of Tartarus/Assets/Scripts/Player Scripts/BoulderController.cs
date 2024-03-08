@@ -46,7 +46,8 @@ public class BoulderController : MonoBehaviour
             }
             //boulder breaks obstacles when not connected
             else if(other.CompareTag("Obstacle")){
-                Destroy(other.gameObject);
+                Obstacle obstacle = other.GetComponent<Obstacle>();
+                obstacle.DestroyObstacle();
                 rb.velocity *= 0.7f;
             }
             else if(other.CompareTag("Chest")){
