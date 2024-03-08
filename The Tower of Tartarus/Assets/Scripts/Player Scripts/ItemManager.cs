@@ -11,7 +11,6 @@ public class ItemManager : MonoBehaviour
 
     public void UpdateItemUI(int itemIndex)
     {
-        Debug.Log("entered item ui");
         itemCount ++;
         
 

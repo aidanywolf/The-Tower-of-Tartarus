@@ -13,6 +13,7 @@ public class Harpie : MonoBehaviour
     [SerializeField] LayerMask playerLayer;
     [SerializeField] float meleeRadius;
     [SerializeField] GameObject blood;
+    [SerializeField] GameObject healthItem;
     public bool aggroed = false;
     Player playerScript;
 
@@ -46,8 +47,16 @@ public class Harpie : MonoBehaviour
             playerScript.LoseHealth();
         }
         if(health <= 0){
+            //make bloodsplat
             GameObject bloodSplat = Instantiate(blood,transform.position,Quaternion.identity);
             bloodSplat.transform.position = new Vector3(bloodSplat.transform.position.x, bloodSplat.transform.position.y, 2f);
+
+            //chance drop health item
+            int healthChance = Random.Range(0, 10);
+            if(healthChance == 0){
+                GameObject item = Instantiate(healthItem,transform.position,Quaternion.identity);
+                item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, 1f);
+            }
             Destroy(this.gameObject);
         }
     }

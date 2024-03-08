@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class HealthItem : MonoBehaviour
 {
-    [SerializeField] HealthManager healthManager;
+    HealthManager healthManager;
+
 
     void Awake(){
         GameObject player = GameObject.Find("Player");
@@ -18,6 +19,12 @@ public class HealthItem : MonoBehaviour
             healthManager.currentHealth += 1;
             healthManager.UpdateHealthUI();
             Destroy(this.gameObject);
+        }
+    }
+
+    void Update(){
+        if(healthManager.currentHealth < healthManager.maxHealth){
+            GetComponent<Collider2D>().isTrigger = true;
         }
     }
 }

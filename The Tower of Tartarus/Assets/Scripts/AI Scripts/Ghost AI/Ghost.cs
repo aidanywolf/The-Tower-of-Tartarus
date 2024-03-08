@@ -14,8 +14,10 @@ public class Ghost : MonoBehaviour
     [SerializeField] float meleeRadius;
     [SerializeField] GameObject body;
     [SerializeField] GameObject blood;
+    [SerializeField] GameObject healthItem;
     public bool aggroed = false;
     Player playerScript;
+    
 
     void Start()
     {
@@ -48,8 +50,17 @@ public class Ghost : MonoBehaviour
             playerScript.LoseHealth();
         }
         if(health <= 0){
+            //make blood splat
             GameObject bloodSplat = Instantiate(blood,transform.position,Quaternion.identity);
             bloodSplat.transform.position = new Vector3(bloodSplat.transform.position.x, bloodSplat.transform.position.y, 2f);
+
+            //chance drop health item
+            int healthChance = Random.Range(0, 10);
+            if(healthChance != null){
+                GameObject item = Instantiate(healthItem,transform.position,Quaternion.identity);
+               // item.GetComponent<Rigidbody2D>().velocity = boulderVelocity / 2;
+                item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, 1f);
+            }
             Destroy(this.gameObject);
         }
     }

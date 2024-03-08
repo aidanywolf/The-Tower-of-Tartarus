@@ -158,7 +158,7 @@ MonoBehaviour:
   obstacles:
     serializedVersion: 2
     m_Bits: 264
-  sightDistance: 5
+  sightDistance: 8
   gridSize: 1
 --- !u!1 &4110278642729364100
 GameObject:
@@ -219,6 +219,7 @@ MonoBehaviour:
   meleeRadius: 0.6
   body: {fileID: 241147666516686435}
   blood: {fileID: 8555844530297394069, guid: 76c077b6a83d6cd408fa3956e12eb793, type: 3}
+  healthItem: {fileID: 4644162249587760657, guid: 51537b854c91cec41bcdeb5cb045ff22, type: 3}
   aggroed: 0
 --- !u!50 &6713394371026976825
 Rigidbody2D:

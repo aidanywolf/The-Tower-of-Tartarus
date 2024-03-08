@@ -8,7 +8,6 @@ public class BoulderRoller : MonoBehaviour
     [SerializeField] GameObject boulder;
     [SerializeField] public float force = 5;
     [SerializeField] private Rigidbody2D rbPlayer;
-    CircleCollider2D collider;
     [SerializeField] LayerMask wallLayer;
     [SerializeField] float checkRadius;
     bool inWall = false;
@@ -16,7 +15,6 @@ public class BoulderRoller : MonoBehaviour
 
     void Start()
     {
-        collider = boulder.GetComponent<CircleCollider2D>();
         boulderController = boulder.GetComponent<BoulderController>();
     }
     public void Roll(Vector3 targetPos){
