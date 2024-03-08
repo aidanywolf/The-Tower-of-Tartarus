@@ -154,12 +154,12 @@ MonoBehaviour:
   targetPlayer: {fileID: 0}
   walls:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 264
   obstacles:
     serializedVersion: 2
-    m_Bits: 256
-  sightDistance: 10
-  gridSize: 0.5
+    m_Bits: 264
+  sightDistance: 5
+  gridSize: 1
 --- !u!1 &4110278642729364100
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,12 +212,13 @@ MonoBehaviour:
   launchDelay: 3
   player: {fileID: 0}
   health: 1
-  speed: 1
+  speed: 0.6
   playerLayer:
     serializedVersion: 2
     m_Bits: 64
   meleeRadius: 0.6
   body: {fileID: 241147666516686435}
+  aggroed: 0
 --- !u!50 &6713394371026976825
 Rigidbody2D:
   serializedVersion: 4
@@ -260,7 +261,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 5632
+    m_Bits: 7936
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2

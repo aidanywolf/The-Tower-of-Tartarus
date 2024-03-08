@@ -13,6 +13,7 @@ public class HarpieAIAggroState : HarpieAIState
             path = new List<Vector2>();
         }
         harpieAI.GetTargetMoveCommand(ref path);
+        harpieAI.myHarpie.aggroed = true;
     }
     public override void UpdateState()
     {

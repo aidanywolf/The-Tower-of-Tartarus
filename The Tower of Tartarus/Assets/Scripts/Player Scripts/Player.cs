@@ -29,11 +29,6 @@ public class Player : MonoBehaviour
         rb.velocity = (direction * speed);
     }
 
-    private void OnTriggerEnter2D(Collider2D other){
-        if(other.CompareTag("LengthWall") || other.CompareTag("WidthWall")){
-        }
-    }
-
     void Update(){
 
         //gives player invulnerability for some time

@@ -127,8 +127,24 @@ public class HarpieAI : MonoBehaviour
         // random pos is curr position modified by random offset
         Vector3 randomOffset = new Vector3(randomX, randomY, 0);
         Vector3 randomPos = myHarpie.transform.position + randomOffset;
-        RaycastHit2D hit = Physics2D.Linecast(myHarpie.transform.position, randomPos,walls);
-        GetMoveCommand(randomPos, ref path);
+        
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(randomPos, 1f);
+        bool hitWall = false;
 
+        // Check if any collider is a wall or obstacle
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("LengthWall") || collider.CompareTag("WidthWall") || collider.CompareTag("Obstacle") || collider.CompareTag("EnemyWall") || collider.CompareTag("Chest"))
+            {
+                hitWall = true;
+                break;
+            }
+        }
+
+        // If overlapcircle doesn't hit a wall, get the move command
+        if (!hitWall)
+        {
+            GetMoveCommand(randomPos, ref path);
+        }
     }
 }

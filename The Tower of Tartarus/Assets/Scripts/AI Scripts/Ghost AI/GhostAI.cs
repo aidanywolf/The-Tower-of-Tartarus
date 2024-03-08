@@ -127,7 +127,22 @@ public class GhostAI : MonoBehaviour
         Vector3 randomOffset = new Vector3(randomX, randomY, 0);
         Vector3 randomPos = myGhost.transform.position + randomOffset;
         RaycastHit2D hit = Physics2D.Linecast(myGhost.transform.position, randomPos,walls);
-        GetMoveCommand(randomPos, ref path);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(randomPos, 1f);
+        bool hitWall = false;
 
+        // Check if any collider is a wall or obstacle
+        foreach (Collider2D collider in colliders){
+            if (collider.CompareTag("LengthWall") || collider.CompareTag("WidthWall") || collider.CompareTag("EnemyWall")) 
+            {
+                hitWall = true;
+                break;
+            }
+        }
+
+        // If overlapcircle doesn't hit a wall, get the move command
+        if (!hitWall)
+        {
+            GetMoveCommand(randomPos, ref path);
+        }
     }
 }

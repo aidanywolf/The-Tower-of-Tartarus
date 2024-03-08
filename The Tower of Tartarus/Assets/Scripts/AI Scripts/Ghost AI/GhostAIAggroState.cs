@@ -13,6 +13,7 @@ public class GhostAIAggroState : GhostAIState
             path = new List<Vector2>();
         }
         ghostAI.GetTargetMoveCommand(ref path);
+        ghostAI.myGhost.aggroed = true;
     }
     public override void UpdateState()
     {

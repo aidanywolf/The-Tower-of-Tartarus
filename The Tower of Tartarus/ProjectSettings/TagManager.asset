@@ -10,11 +10,13 @@ TagManager:
   - WidthWall
   - Obstacle
   - DamagingBoulder
+  - EnemyWall
+  - Chest
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - EnemyWall
   - Water
   - UI
   - player
@@ -22,7 +24,7 @@ TagManager:
   - walls
   - obstacle
   - CrossableBoulder
-  - BoulderForAI
+  - Chest
   - Enemy
   - 
   - 

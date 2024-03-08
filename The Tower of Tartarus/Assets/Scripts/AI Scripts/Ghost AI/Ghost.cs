@@ -12,7 +12,8 @@ public class Ghost : MonoBehaviour
     [SerializeField] public float speed;
     [SerializeField] LayerMask playerLayer;
     [SerializeField] float meleeRadius;
-    public GameObject body;
+    [SerializeField] GameObject body;
+    public bool aggroed = false;
     Player playerScript;
 
     void Start()
@@ -29,9 +30,13 @@ public class Ghost : MonoBehaviour
     {
         while (true)
         {
-            projectileThrower.Launch(player.transform.position);
-
-            yield return new WaitForSeconds(launchDelay);
+            if(aggroed){
+                projectileThrower.Launch(player.transform.position);
+                yield return new WaitForSeconds(launchDelay);
+            }
+            else{
+                yield return new WaitForSeconds(1);
+            }
         }
     }
 

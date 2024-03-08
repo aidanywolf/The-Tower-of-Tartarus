@@ -9,6 +9,8 @@ public class AnimationStateChanger : MonoBehaviour
 
     public void ChangeAnimationState(string newState, float moving, float speed = 0){
         if(moving == 0){
+        }
+        if(moving == 0){
             animator.speed = 0;
         }else{
             animator.speed = speed/2;

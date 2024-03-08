@@ -18,6 +18,8 @@ public class BoulderController : MonoBehaviour
     [SerializeField] GameObject damagingCollider;
     float moving;
     int targetLayer;
+    float playerSpeed;
+    float playerMoving;
 
     void Awake(){
         playerrb = player.GetComponent<Rigidbody2D>();
@@ -25,25 +27,32 @@ public class BoulderController : MonoBehaviour
         playerController = player.GetComponent<Player>();
     }
     private void OnTriggerEnter2D(Collider2D other){
-        if(other.CompareTag("Player"))
-        {
-            //on pick up, set tag to boulder so it doesnt damage
-            damagingCollider.tag = "Boulder";
-            connected = true;
-            //collider turns off is trigger so that most enemies/ wall will be collidable when player is holding boulder
-            collider.isTrigger = false;
-            rb.velocity = new Vector3(0,0,0);
-        }
-        //if colliding with wall while not connected. boulder bounces off of wall
-        else if(other.CompareTag("LengthWall") && !connected){
-            rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y) * bounciness;
-        }
-        else if(other.CompareTag("WidthWall") && !connected){
-            rb.velocity = new Vector2(rb.velocity.x, -rb.velocity.y) * bounciness;
-        }
-        //boulder breaks obstacles when not connected
-        else if(other.CompareTag("Obstacle") && !connected){
-            Destroy(other.gameObject);
+        if(!connected){
+            if(other.CompareTag("Player"))
+            {
+                //on pick up, set tag to boulder so it doesnt damage
+                damagingCollider.tag = "Boulder";
+                connected = true;
+                //collider turns off is trigger so that most enemies/ wall will be collidable when player is holding boulder
+                collider.isTrigger = false;
+                rb.velocity = new Vector3(0,0,0);
+            }
+            //if colliding with wall while not connected. boulder bounces off of wall
+            else if(other.CompareTag("LengthWall")){
+                rb.velocity = new Vector2(-rb.velocity.x, rb.velocity.y) * bounciness;
+            }
+            else if(other.CompareTag("WidthWall")){
+                rb.velocity = new Vector2(rb.velocity.x, -rb.velocity.y) * bounciness;
+            }
+            //boulder breaks obstacles when not connected
+            else if(other.CompareTag("Obstacle")){
+                Destroy(other.gameObject);
+                rb.velocity *= 0.7f;
+            }
+            else if(other.CompareTag("Chest")){
+                Chest chest = other.GetComponent<Chest>();
+                chest.DestroyChest(rb.velocity);
+            }
         }
     }
 
@@ -120,21 +129,21 @@ public class BoulderController : MonoBehaviour
         }
     }
     
-    //animate based on boulder move dir and speed
+    //animate based on player move dir and speed
     void ConnectedRollAnim(){
-        float playerMoving = moving = Mathf.Abs(playerrb.velocity.x) + Mathf.Abs(playerrb.velocity.y);
-        float speed = playerController.connectedSpeed;
-        if(playerrb.velocity.x > 0){
+        playerMoving = Mathf.Abs(playerrb.velocity.x) + Mathf.Abs(playerrb.velocity.y);
+        playerSpeed = playerController.connectedSpeed;
+        if(playerrb.velocity.x == 0){
             foreach(AnimationStateChanger asc in animationStateChangers){
-                asc.ChangeAnimationState("BoulderRollRight", playerMoving, speed);
+                asc.ChangeAnimationState("BoulderRollRight", playerMoving, playerSpeed);
             }
         }else if(playerrb.velocity.x < 0){
             foreach(AnimationStateChanger asc in animationStateChangers){
-                asc.ChangeAnimationState("BoulderRollLeft", playerMoving, speed);
+                asc.ChangeAnimationState("BoulderRollLeft", playerMoving, playerSpeed);
             }
-        }else{
+        }else if(playerrb.velocity.x > 0){
             foreach(AnimationStateChanger asc in animationStateChangers){
-                asc.ChangeAnimationState("BoulderRollLeft", playerMoving, speed);
+                asc.ChangeAnimationState("BoulderRollRight", playerMoving, playerSpeed);
             }
         }
     }
