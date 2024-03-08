@@ -56,7 +56,7 @@ public class Ghost : MonoBehaviour
 
             //chance drop health item
             int healthChance = Random.Range(0, 10);
-            if(healthChance != null){
+            if(healthChance == 0){
                 GameObject item = Instantiate(healthItem,transform.position,Quaternion.identity);
                // item.GetComponent<Rigidbody2D>().velocity = boulderVelocity / 2;
                 item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, 1f);
