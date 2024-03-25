@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     [SerializeField] public float connectedSpeed = 0;
@@ -9,6 +9,8 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject boulder;
     [SerializeField] private List<AnimationStateChanger> animationStateChangers;
     [SerializeField] public float invulnerabilityDuration = 1.5f;
+    [SerializeField] Material invulnMaterial, defaultMaterial;
+    [SerializeField] GameObject playerbody;
 
     BoulderController boulderController;    
     HealthManager healthManager;
@@ -16,6 +18,7 @@ public class Player : MonoBehaviour
     float invulnerabilityTimer = 0f;
     float speed = 0;
     Rigidbody2D rb;
+    
 
      void Awake(){
         rb = GetComponent<Rigidbody2D>();
@@ -23,7 +26,7 @@ public class Player : MonoBehaviour
         healthManager = GetComponent<HealthManager>();
     }
 
-    public void MoveCreature(Vector3 direction)
+    public void MovePlayer(Vector3 direction)
     {
         //move player
         rb.velocity = (direction * speed);
@@ -70,7 +73,17 @@ public class Player : MonoBehaviour
             healthManager.UpdateHealthUI();
             isInvulnerable = true;
             invulnerabilityTimer = invulnerabilityDuration;
+            StartCoroutine(Invulnerability());
         }
+        if(healthManager.currentHealth <= 0){
+            SceneManager.LoadScene(0);
+        }
+    }
+
+    IEnumerator Invulnerability(){
+        playerbody.GetComponent<SpriteRenderer>().material = invulnMaterial;
+        yield return new WaitForSeconds(invulnerabilityDuration);
+        playerbody.GetComponent<SpriteRenderer>().material = defaultMaterial;
     }
 
     void playerAnimConnected(float moving, float angle, float crossZ){

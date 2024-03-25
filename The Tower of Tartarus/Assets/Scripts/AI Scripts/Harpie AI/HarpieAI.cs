@@ -5,9 +5,7 @@ using Aoiti.Pathfinding; //import the pathfinding library
 
 public class HarpieAI : MonoBehaviour
 {
-
-    //blackboard=======================================================
-    public Harpie myHarpie; //the creature we are piloting
+    public Harpie myHarpie; 
     public Player targetPlayer;
 
     [Header("Config")]
@@ -19,8 +17,7 @@ public class HarpieAI : MonoBehaviour
     Pathfinder<Vector2> pathfinder;
     [SerializeField] float gridSize = 1f;
 
-    //State machine====================================================
-    //States go here
+    //States
     HarpieAIState currentState;
     public HarpieAIPatrolState patrolState{get; private set;}
     public HarpieAIBeginState beginState{get; private set;}
@@ -35,7 +32,6 @@ public class HarpieAI : MonoBehaviour
     }
 
 
-    // Start is called before the first frame update
     void Start()
     {
         beginState = new HarpieAIBeginState(this);

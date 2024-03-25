@@ -656,7 +656,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.92941177, g: 0.87058824, b: 1, a: 1}
+  m_Color: {r: 0.9328, g: 0.88, b: 1, a: 1}
   m_Origin: {x: -5, y: -10, z: 0}
   m_Size: {x: 16, y: 26, z: 1}
   m_TileAnchor: {x: 0, y: 0, z: 0}
@@ -3009,7 +3009,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.9287487, g: 0.87106913, b: 1, a: 1}
+  m_Color: {r: 0.93, g: 0.88, b: 1, a: 1}
   m_Origin: {x: -9, y: -10, z: 0}
   m_Size: {x: 16, y: 52, z: 1}
   m_TileAnchor: {x: 0, y: 0, z: 0}
@@ -5251,7 +5251,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.6569868, g: 0.6072741, b: 0.72327036, a: 1}
+  m_Color: {r: 0.6571242, g: 0.60784316, b: 0.72156864, a: 1}
   m_Origin: {x: -11, y: -16, z: 0}
   m_Size: {x: 20, y: 59, z: 1}
   m_TileAnchor: {x: 0, y: 0, z: 0}
@@ -19219,7 +19219,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 0.80103993, g: 0.75054383, b: 0.8616352, a: 1}
+  m_Color: {r: 0.9111111, g: 0.84313726, b: 1, a: 1}
   m_Origin: {x: -10, y: -17, z: 0}
   m_Size: {x: 18, y: 58, z: 1}
   m_TileAnchor: {x: 0, y: 0, z: 0}
@@ -20003,11 +20003,11 @@ PrefabInstance:
       objectReference: {fileID: 895255818}
     - target: {fileID: 730084186586963461, guid: fa59e339992ce8f448fe707aaeffc238, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3
+      value: -3.32
       objectReference: {fileID: 0}
     - target: {fileID: 730084186586963461, guid: fa59e339992ce8f448fe707aaeffc238, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -13
+      value: -13.43
       objectReference: {fileID: 0}
     - target: {fileID: 730084186586963461, guid: fa59e339992ce8f448fe707aaeffc238, type: 3}
       propertyPath: m_LocalPosition.z
@@ -20049,10 +20049,6 @@ PrefabInstance:
       propertyPath: itemsParent
       value: 
       objectReference: {fileID: 1935459777}
-    - target: {fileID: 7767151222795451722, guid: fa59e339992ce8f448fe707aaeffc238, type: 3}
-      propertyPath: wallLayer.m_Bits
-      value: 768
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

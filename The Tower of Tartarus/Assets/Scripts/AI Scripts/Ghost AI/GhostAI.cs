@@ -1,12 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Aoiti.Pathfinding; //import the pathfinding library
-
+using Aoiti.Pathfinding;
 public class GhostAI : MonoBehaviour
 {
-
-    //blackboard=======================================================
     public Ghost myGhost; //the creature we are piloting
     public Player targetPlayer;
 
@@ -19,14 +16,14 @@ public class GhostAI : MonoBehaviour
     Pathfinder<Vector2> pathfinder;
     [SerializeField] float gridSize = 1f;
 
-    //State machine====================================================
-    //States go here
+    //States
     GhostAIState currentState;
     public GhostAIPatrolState patrolState{get; private set;}
     public GhostAIBeginState beginState{get; private set;}
     public GhostAIAggroState aggroState{get; private set;}
 
 
+    //change from on state to another
     public void ChangeState(GhostAIState newState){
 
         currentState = newState;
@@ -34,8 +31,6 @@ public class GhostAI : MonoBehaviour
         currentState.BeginStateBase();
     }
 
-
-    // Start is called before the first frame update
     void Start()
     {
         beginState = new GhostAIBeginState(this);

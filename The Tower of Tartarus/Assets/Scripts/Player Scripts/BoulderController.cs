@@ -17,7 +17,6 @@ public class BoulderController : MonoBehaviour
     //edgecase colldier is a smaller collider that can damage in these situations, as there is some space between it and the edge of the boulder
     [SerializeField] GameObject damagingCollider;
     float moving;
-    int targetLayer;
     float playerSpeed;
     float playerMoving;
 

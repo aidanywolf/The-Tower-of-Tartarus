@@ -14,6 +14,7 @@ public class MaxHealthItem : MonoBehaviour
     }
 
     //adds one maxhealth and currhealth
+    // splinter of aegis
     private void OnTriggerEnter2D(Collider2D other){
         if(other.CompareTag("Player"))
         {

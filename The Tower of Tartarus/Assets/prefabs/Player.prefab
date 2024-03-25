@@ -99,7 +99,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9a51f4f19b8cc1344a34fefe3aaf5ee8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -317,7 +317,7 @@ MonoBehaviour:
   rbPlayer: {fileID: 3995453519058994771}
   wallLayer:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   checkRadius: 0.7
 --- !u!114 &6456936927609081720
 MonoBehaviour:
@@ -337,6 +337,9 @@ MonoBehaviour:
   animationStateChangers:
   - {fileID: 708491468311091288}
   invulnerabilityDuration: 1.5
+  invulnMaterial: {fileID: 2100000, guid: 81105af7e6f6a0c4faefbbf3cca77090, type: 2}
+  defaultMaterial: {fileID: 2100000, guid: 9a51f4f19b8cc1344a34fefe3aaf5ee8, type: 2}
+  playerbody: {fileID: 2809599864019006228}
 --- !u!114 &113488201564695127
 MonoBehaviour:
   m_ObjectHideFlags: 0

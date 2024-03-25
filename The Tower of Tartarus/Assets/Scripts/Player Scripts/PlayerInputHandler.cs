@@ -43,7 +43,7 @@ public class PlayerInputHandler : MonoBehaviour
         }
 
         //send input to movecreature
-        player.MoveCreature(input);
+        player.MovePlayer(input);
 
 
     }

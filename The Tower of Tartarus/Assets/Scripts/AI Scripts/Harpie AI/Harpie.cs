@@ -69,10 +69,11 @@ public class Harpie : MonoBehaviour
         }
     }
 
+
+    // move harpie based on given direction
     public void MoveHarpie(Vector3 direction)
     {
-        Vector3 currentVelocity = new Vector3(0, 0, 0);
-        rb.velocity = (currentVelocity) + (direction * speed);
+        rb.velocity = (direction * speed);
     }
 
     public void MoveHarpieToward(Vector3 target){

@@ -65,18 +65,19 @@ public class Ghost : MonoBehaviour
         }
     }
 
+    //enemy collides with boudler, enemy loses health
     void OnTriggerEnter2D(Collider2D other)
     {
-        //enemy collides with boudler, enemy loses health
         if(other.gameObject.tag == "DamagingBoulder"){
             health-=1;
         }
     }
 
+
+    //ghost faced dir changes based on move dir
     public void MoveGhost(Vector3 direction)
     {
-        Vector3 currentVelocity = new Vector3(0, 0, 0);
-        rb.velocity = (currentVelocity) + (direction * speed);
+        rb.velocity = (direction * speed);
         if(rb.velocity.x < 0){
             body.transform.localScale = new Vector3(-1,1,1);
         }else if(rb.velocity.x > 0){
@@ -84,6 +85,7 @@ public class Ghost : MonoBehaviour
         }
     }
 
+    //move ghost toward provided target
     public void MoveGhostToward(Vector3 target){
         Vector3 direction = target - transform.position;
         MoveGhost(direction.normalized);
