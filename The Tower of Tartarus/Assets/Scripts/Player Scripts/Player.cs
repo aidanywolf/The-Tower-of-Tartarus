@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] public float invulnerabilityDuration = 1.5f;
     [SerializeField] Material invulnMaterial, defaultMaterial;
     [SerializeField] GameObject playerbody;
+    [SerializeField] DeathFader deathFader;
 
     BoulderController boulderController;    
     HealthManager healthManager;
@@ -76,7 +77,8 @@ public class Player : MonoBehaviour
             StartCoroutine(Invulnerability());
         }
         if(healthManager.currentHealth <= 0){
-            SceneManager.LoadScene(0);
+            deathFader.FadeToColor();
+            this.gameObject.SetActive(false);
         }
     }
 

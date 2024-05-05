@@ -16,6 +16,7 @@ public class Harpie : MonoBehaviour
     [SerializeField] GameObject healthItem;
     public bool aggroed = false;
     Player playerScript;
+    [SerializeField] ParticleSystem deathParticles;
 
     void Start()
     {
@@ -46,19 +47,6 @@ public class Harpie : MonoBehaviour
         if(colliders.Length > 0 ){
             playerScript.LoseHealth();
         }
-        if(health <= 0){
-            //make bloodsplat
-            GameObject bloodSplat = Instantiate(blood,transform.position,Quaternion.identity);
-            bloodSplat.transform.position = new Vector3(bloodSplat.transform.position.x, bloodSplat.transform.position.y, 2f);
-
-            //chance drop health item
-            int healthChance = Random.Range(0, 10);
-            if(healthChance == 0){
-                GameObject item = Instantiate(healthItem,transform.position,Quaternion.identity);
-                item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, 1f);
-            }
-            Destroy(this.gameObject);
-        }
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -66,6 +54,24 @@ public class Harpie : MonoBehaviour
         //enemy collides with boudler, enemy loses health
         if(other.gameObject.tag == "DamagingBoulder"){
             health-=1;
+        }
+        if(health <= 0){
+            //make bloodsplat
+            GameObject bloodSplat = Instantiate(blood,transform.position,Quaternion.identity);
+            bloodSplat.transform.position = new Vector3(bloodSplat.transform.position.x, bloodSplat.transform.position.y, 2f);
+            bloodSplat.transform.parent = this.transform.parent;
+
+            //chance drop health item
+            int healthChance = Random.Range(0, 12);
+            if(healthChance == 0){
+                GameObject item = Instantiate(healthItem,transform.position,Quaternion.identity);
+                item.transform.position = new Vector3(item.transform.position.x, item.transform.position.y, 1f);
+                item.transform.parent = this.transform.parent;
+            }
+
+            deathParticles = Instantiate(deathParticles, transform.position, Quaternion.identity);
+            deathParticles.transform.parent = this.transform.parent;
+            Destroy(this.gameObject);
         }
     }
 

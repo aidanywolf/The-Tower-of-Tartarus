@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8816b2536b4e3964b9567029d523cfb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  increaseAmount: 0.5
+  increaseAmount: 1
 --- !u!50 &4696061632825558316
 Rigidbody2D:
   serializedVersion: 4
