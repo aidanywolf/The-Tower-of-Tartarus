@@ -45,6 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 6456936927609081720}
+  pauseActive: 0
+  pauseMenuUI: {fileID: 0}
+  beginMenuUI: {fileID: 0}
+  deathMenuUI: {fileID: 0}
 --- !u!1 &2809599864019006228
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,6 +344,7 @@ MonoBehaviour:
   invulnMaterial: {fileID: 2100000, guid: 81105af7e6f6a0c4faefbbf3cca77090, type: 2}
   defaultMaterial: {fileID: 2100000, guid: 9a51f4f19b8cc1344a34fefe3aaf5ee8, type: 2}
   playerbody: {fileID: 2809599864019006228}
+  deathFader: {fileID: 0}
 --- !u!114 &113488201564695127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -480,7 +485,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.7
+  m_Radius: 0.6
 --- !u!1 &5996142727409997020
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,6 +536,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 3867092039974739517}
+  playerInputHandler: {fileID: 0}
   offset: 1
   connected: 1
   bounciness: 0.5

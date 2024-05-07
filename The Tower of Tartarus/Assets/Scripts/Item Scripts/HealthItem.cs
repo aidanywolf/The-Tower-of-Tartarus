@@ -5,11 +5,14 @@ using UnityEngine;
 public class HealthItem : MonoBehaviour
 {
     HealthManager healthManager;
+    AudioManager audioManager;
 
 
     void Awake(){
         GameObject player = GameObject.Find("Player");
         healthManager = player.GetComponent<HealthManager>();
+        GameObject audioManagerObj = GameObject.Find("AudioManager");
+        audioManager = audioManagerObj.GetComponent<AudioManager>();
     }
 
     //adds one health if curr health is less than max health
@@ -18,6 +21,7 @@ public class HealthItem : MonoBehaviour
         {
             healthManager.currentHealth += 1;
             healthManager.UpdateHealthUI();
+            audioManager.PlaySFX(audioManager.itemPickup);
             Destroy(this.gameObject);
         }
     }

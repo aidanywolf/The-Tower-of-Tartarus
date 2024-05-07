@@ -6,11 +6,14 @@ public class UnconnectedSpeedItem : MonoBehaviour
 {
     Player player;
     ItemManager itemManager;
+    AudioManager audioManager;
     [SerializeField] float increaseAmount;
     void Awake(){
         GameObject playerObj = GameObject.Find("Player");
         player = playerObj.GetComponent<Player>();
         itemManager = playerObj.GetComponent<ItemManager>();
+        GameObject audioManagerObj = GameObject.Find("AudioManager");
+        audioManager = audioManagerObj.GetComponent<AudioManager>();
     }
 
     //increases connected move speed
@@ -20,6 +23,7 @@ public class UnconnectedSpeedItem : MonoBehaviour
         {
             itemManager.UpdateItemUI(2);
             player.connectedSpeed += increaseAmount;
+            audioManager.PlaySFX(audioManager.itemPickup);
             Destroy(this.gameObject);
         }
     }

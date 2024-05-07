@@ -6,6 +6,7 @@ public class BoulderController : MonoBehaviour
 {
     [SerializeField] GameObject player;
     Player playerController;
+    [SerializeField] PlayerInputHandler playerInputHandler;
     [SerializeField] float offset = 1f; 
     [SerializeField] public bool connected = true;
     [SerializeField] float bounciness = 0.5f;
@@ -13,8 +14,6 @@ public class BoulderController : MonoBehaviour
     Vector3 zLayer = new Vector3(0f, 0f, 0f);
     Rigidbody2D rb, playerrb;
     [SerializeField] CircleCollider2D collider;
-    //sometimes if boulder is right up against something it wont damage when rolled
-    //edgecase colldier is a smaller collider that can damage in these situations, as there is some space between it and the edge of the boulder
     [SerializeField] GameObject damagingCollider;
     float moving;
     float playerSpeed;
@@ -24,6 +23,7 @@ public class BoulderController : MonoBehaviour
         playerrb = player.GetComponent<Rigidbody2D>();
         rb = GetComponent<Rigidbody2D>();
         playerController = player.GetComponent<Player>();
+        playerInputHandler = player.GetComponentInChildren<PlayerInputHandler>();
     }
     private void OnTriggerEnter2D(Collider2D other){
         if(!connected){
@@ -58,57 +58,58 @@ public class BoulderController : MonoBehaviour
 
     void Update()
     {
+        if(playerInputHandler.pauseActive == false){
+            moving = Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.y);
 
-        moving = Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.y);
-
-        if(moving > 1 && !connected){
-            //set tag to damaging so it can damage enemies
-            //turn on is trigger for main collider so that it can go through enemies
-            damagingCollider.tag = "DamagingBoulder";
-            collider.isTrigger = true;
-        }
-        else if(!connected){
-            //if its not connected and not moving set tag to boulder so it cant damage
-            //set is trigger to false so that most enemies can no longer walk through it
-            damagingCollider.tag = "Boulder";
-            collider.isTrigger = false;
-        }
-
-
-        //boulder must be connected for this transform code to run
-        if(connected){
-            Vector3 playerPosition = player.transform.position;
-            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 boulderPosition = transform.position;
-            mousePosition.z = 0;
-
-            //direction to rotate boulder
-            Vector3 direction = (mousePosition - playerPosition);
-
-            //rotate in direction 
-            Quaternion targetRotation = Quaternion.LookRotation(Camera.main.transform.forward, direction);
-            transform.rotation = targetRotation;
-        
-
-            Vector3 desiredPosition = playerPosition + offset * direction.normalized; 
-            transform.position = desiredPosition;
-
-    
-            //changes the boulders layer depending on where player is looking
-            //if boulder is pointing up, boulder should be below player z
-            //if boulder is pointing down, boulder should be above player z
-            float verticalThreshold = -0.4f;
-            if((boulderPosition.y - playerPosition.y) > verticalThreshold ){
-                zLayer = new Vector3(0f, 0f, 1f);
-            }else if((boulderPosition.y - playerPosition.y) < verticalThreshold ){
-                zLayer = new Vector3(0f, 0f, -1f);
+            if(moving > 1 && !connected){
+                //set tag to damaging so it can damage enemies
+                //turn on is trigger for main collider so that it can go through enemies
+                damagingCollider.tag = "DamagingBoulder";
+                collider.isTrigger = true;
             }
-            transform.position += zLayer;
-            //animation function while connected
-            ConnectedRollAnim();
-        }else{
-            //animation function while disconnected
-            RollAnim();
+            else if(!connected){
+                //if its not connected and not moving set tag to boulder so it cant damage
+                //set is trigger to false so that most enemies can no longer walk through it
+                damagingCollider.tag = "Boulder";
+                collider.isTrigger = false;
+            }
+
+
+            //boulder must be connected for this transform code to run
+            if(connected){
+                Vector3 playerPosition = player.transform.position;
+                Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                Vector3 boulderPosition = transform.position;
+                mousePosition.z = 0;
+
+                //direction to rotate boulder
+                Vector3 direction = (mousePosition - playerPosition);
+
+                //rotate in direction 
+                Quaternion targetRotation = Quaternion.LookRotation(Camera.main.transform.forward, direction);
+                transform.rotation = targetRotation;
+            
+
+                Vector3 desiredPosition = playerPosition + offset * direction.normalized; 
+                transform.position = desiredPosition;
+
+        
+                //changes the boulders layer depending on where player is looking
+                //if boulder is pointing up, boulder should be below player z
+                //if boulder is pointing down, boulder should be above player z
+                float verticalThreshold = -0.4f;
+                if((boulderPosition.y - playerPosition.y) > verticalThreshold ){
+                    zLayer = new Vector3(0f, 0f, 1f);
+                }else if((boulderPosition.y - playerPosition.y) < verticalThreshold ){
+                    zLayer = new Vector3(0f, 0f, -1f);
+                }
+                transform.position += zLayer;
+                //animation function while connected
+                ConnectedRollAnim();
+            }else{
+                //animation function while disconnected
+                RollAnim();
+            }
         }
     }
 

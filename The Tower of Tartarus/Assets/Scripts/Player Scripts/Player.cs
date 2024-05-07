@@ -12,8 +12,10 @@ public class Player : MonoBehaviour
     [SerializeField] Material invulnMaterial, defaultMaterial;
     [SerializeField] GameObject playerbody;
     [SerializeField] DeathFader deathFader;
+    [SerializeField] AudioManager audioManager;
 
     BoulderController boulderController;    
+    PlayerInputHandler inputHandler;
     HealthManager healthManager;
     bool isInvulnerable = false;
     float invulnerabilityTimer = 0f;
@@ -25,6 +27,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         boulderController = boulder.GetComponent<BoulderController>();
         healthManager = GetComponent<HealthManager>();
+        inputHandler = this.GetComponentInChildren<PlayerInputHandler>();
     }
 
     public void MovePlayer(Vector3 direction)
@@ -56,10 +59,10 @@ public class Player : MonoBehaviour
         float moving = Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.y);
 
          //changes speed and anim based on if player is connected to boulder
-        if(boulderController.connected == true){
+        if(boulderController.connected == true && inputHandler.pauseActive == false){
             speed = connectedSpeed;
             playerAnimConnected(moving, angle, cross.z);
-        }else{
+        }else if(inputHandler.pauseActive == false){
             speed = unconnectedSpeed;
             playerAnimDisconnected(moving, angle, cross.z);
         }
@@ -78,6 +81,7 @@ public class Player : MonoBehaviour
         }
         if(healthManager.currentHealth <= 0){
             deathFader.FadeToColor();
+            audioManager.PlaySFX(audioManager.playerDeath);
             this.gameObject.SetActive(false);
         }
     }

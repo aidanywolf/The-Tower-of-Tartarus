@@ -11,6 +11,7 @@ public class BoulderRoller : MonoBehaviour
     [SerializeField] LayerMask wallLayer;
     [SerializeField] float checkRadius;
     bool inWall = false;
+    [SerializeField] AudioManager audioManager;
 
 
     void Start()
@@ -38,6 +39,7 @@ public class BoulderRoller : MonoBehaviour
         }
 
         if(boulderController.connected && !inWall){
+            audioManager.PlaySFX(audioManager.boulderRoll);
             boulderController.connected = false;
             
             //Calculate the force direction based on player's movement dir and target direction

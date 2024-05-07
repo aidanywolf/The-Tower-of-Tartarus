@@ -18,6 +18,7 @@ public class Mouth : MonoBehaviour
     public bool aggroed = false;
     Player playerScript;
     [SerializeField] ParticleSystem deathParticles;
+    AudioManager audioManager;
 
     void Start()
     {
@@ -26,6 +27,8 @@ public class Mouth : MonoBehaviour
         playerScript = player.GetComponent<Player>();
         projectileThrower = GetComponent<MouthProjectileThrower>();
         StartCoroutine(LaunchProjectileCoroutine());
+        GameObject audioManagerObj = GameObject.Find("AudioManager");
+        audioManager = audioManagerObj.GetComponent<AudioManager>();
     }
     //projectile launches one at a a time with delay
     IEnumerator LaunchProjectileCoroutine()
@@ -72,6 +75,7 @@ public class Mouth : MonoBehaviour
 
             deathParticles = Instantiate(deathParticles, transform.position, Quaternion.identity);
             deathParticles.transform.parent = this.transform.parent;
+            audioManager.PlaySFX(audioManager.enemyDeath);
             Destroy(this.gameObject);
         }
     }
