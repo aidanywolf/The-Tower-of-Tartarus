@@ -19,6 +19,10 @@ public class BoulderController : MonoBehaviour
     float playerSpeed;
     float playerMoving;
 
+    float disconnectCooldown = 0.2f; 
+    bool canBePickedUp = false;
+    float disconnectTime = 0f;
+
     void Awake(){
         playerrb = player.GetComponent<Rigidbody2D>();
         rb = GetComponent<Rigidbody2D>();
@@ -27,8 +31,11 @@ public class BoulderController : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other){
         if(!connected){
-            if(other.CompareTag("Player"))
+            if(other.CompareTag("Player") && canBePickedUp)
             {
+
+                canBePickedUp = false;
+                disconnectTime = Time.time;
                 //on pick up, set tag to boulder so it doesnt damage
                 damagingCollider.tag = "Boulder";
                 connected = true;
@@ -59,21 +66,13 @@ public class BoulderController : MonoBehaviour
     void Update()
     {
         if(playerInputHandler.pauseActive == false){
+
+            if (!canBePickedUp && Time.time >= disconnectTime + disconnectCooldown)
+            {
+                canBePickedUp = true;
+            }
+
             moving = Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.y);
-
-            if(moving > 1 && !connected){
-                //set tag to damaging so it can damage enemies
-                //turn on is trigger for main collider so that it can go through enemies
-                damagingCollider.tag = "DamagingBoulder";
-                collider.isTrigger = true;
-            }
-            else if(!connected){
-                //if its not connected and not moving set tag to boulder so it cant damage
-                //set is trigger to false so that most enemies can no longer walk through it
-                damagingCollider.tag = "Boulder";
-                collider.isTrigger = false;
-            }
-
 
             //boulder must be connected for this transform code to run
             if(connected){
@@ -109,6 +108,18 @@ public class BoulderController : MonoBehaviour
             }else{
                 //animation function while disconnected
                 RollAnim();
+                if(moving > 1){
+                    //set tag to damaging so it can damage enemies
+                    //turn on is trigger for main collider so that it can go through enemies
+                    damagingCollider.tag = "DamagingBoulder";
+                    collider.isTrigger = true;
+                }
+                else{
+                    //if its not connected and not moving set tag to boulder so it cant damage
+                    //set is trigger to false so that most enemies can no longer walk through it
+                    damagingCollider.tag = "Boulder";
+                    collider.isTrigger = false;
+                }
             }
         }
     }
