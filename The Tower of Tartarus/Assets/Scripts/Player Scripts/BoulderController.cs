@@ -7,6 +7,7 @@ public class BoulderController : MonoBehaviour
     [SerializeField] GameObject player;
     Player playerController;
     [SerializeField] PlayerInputHandler playerInputHandler;
+    [SerializeField] BoulderRoller boulderRoller;
     [SerializeField] float offset = 1f; 
     [SerializeField] public bool connected = true;
     [SerializeField] float bounciness = 0.5f;
@@ -20,8 +21,7 @@ public class BoulderController : MonoBehaviour
     float playerMoving;
 
     float disconnectCooldown = 0.2f; 
-    bool canBePickedUp = false;
-    float disconnectTime = 0f;
+    [SerializeField] bool canBePickedUp = false;
 
     void Awake(){
         playerrb = player.GetComponent<Rigidbody2D>();
@@ -35,7 +35,6 @@ public class BoulderController : MonoBehaviour
             {
 
                 canBePickedUp = false;
-                disconnectTime = Time.time;
                 //on pick up, set tag to boulder so it doesnt damage
                 damagingCollider.tag = "Boulder";
                 connected = true;
@@ -66,11 +65,6 @@ public class BoulderController : MonoBehaviour
     void Update()
     {
         if(playerInputHandler.pauseActive == false){
-
-            if (!canBePickedUp && Time.time >= disconnectTime + disconnectCooldown)
-            {
-                canBePickedUp = true;
-            }
 
             moving = Mathf.Abs(rb.velocity.x) + Mathf.Abs(rb.velocity.y);
 
@@ -119,6 +113,11 @@ public class BoulderController : MonoBehaviour
                     //set is trigger to false so that most enemies can no longer walk through it
                     damagingCollider.tag = "Boulder";
                     collider.isTrigger = false;
+                }
+
+                if (!canBePickedUp && Time.time >= boulderRoller.disconnectTime + disconnectCooldown)
+                {
+                    canBePickedUp = true;
                 }
             }
         }

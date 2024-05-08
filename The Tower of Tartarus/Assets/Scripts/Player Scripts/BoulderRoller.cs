@@ -12,6 +12,7 @@ public class BoulderRoller : MonoBehaviour
     [SerializeField] float checkRadius;
     bool inWall = false;
     [SerializeField] AudioManager audioManager;
+    public float disconnectTime = 0f;
 
 
     void Start()
@@ -39,6 +40,7 @@ public class BoulderRoller : MonoBehaviour
         }
 
         if(boulderController.connected && !inWall){
+            disconnectTime = Time.time;
             audioManager.PlaySFX(audioManager.boulderRoll);
             boulderController.connected = false;
             
