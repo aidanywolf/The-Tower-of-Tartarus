@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24047836cf383a245b0957b4dc3f5de8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launchDelay: 3
+  launchDelay: 2
   player: {fileID: 0}
   health: 1
   speed: 0.6
