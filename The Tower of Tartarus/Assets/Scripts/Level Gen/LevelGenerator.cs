@@ -42,18 +42,21 @@ public class LevelGenerator : MonoBehaviour
         starterRoom.gameObject.name = "Starter";
         Transform exitTransform = starterRoom.transform.Find("Exit");
         placedRooms.Add(starterRoom);
+        
+        StartCoroutine(GenerateSlicedRoutine());
+        IEnumerator GenerateSlicedRoutine(){
+            for(int i = 2; i < roomCount; i++){
 
-        for(int i = 2; i < roomCount; i++){
-
-            newRoom = Instantiate(genRooms[Random.Range(2,genRooms.Count)], exitTransform.position, Quaternion.identity);
-            newRoom.gameObject.name = "Room " + i;
-            exitTransform = newRoom.transform.Find("Exit");
-            placedRooms.Add(newRoom);
+                newRoom = Instantiate(genRooms[Random.Range(2,genRooms.Count)], exitTransform.position, Quaternion.identity);
+                newRoom.gameObject.name = "Room " + i;
+                exitTransform = newRoom.transform.Find("Exit");
+                placedRooms.Add(newRoom);
+                yield return null;
+            }
+            GameObject ender = genRooms[1];
+            GameObject endingRoom = Instantiate(ender, exitTransform.position, Quaternion.identity);
+            endingRoom.gameObject.name = "Ender";
+            placedRooms.Add(endingRoom);
         }
-
-        GameObject ender = genRooms[1];
-        GameObject endingRoom = Instantiate(ender, exitTransform.position, Quaternion.identity);
-        endingRoom.gameObject.name = "Ender";
-        placedRooms.Add(endingRoom);
     }
 }
